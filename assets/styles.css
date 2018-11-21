@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css?family=Assistant|Dancing+Script');
+
+
+html {
+    height: 100vh;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+
+header h1 {
+    margin: 0px;
+    text-align: center;
+    font-family: 'Dancing Script';
+    font-size: 8vh;
+  
+}
+
+.a-deco-none{
+    text-decoration: none;
+}
+
+.a-deco-none:active,.a-deco-none:hover,.a-deco-none:visited{
+    color:black;
+}
+
+
+header p {
+    text-align: center;
+    font-family: 'Assistant';
+}
+
+.top-25 {
+    position: relative;
+    top: 25%;
+}
+
+
+footer {
+    text-align: center;
+}
+
+.sns {
+    font-size: 2vh;
+    margin: 1vh;
+    text-decoration: none;
+    color: black;
+
+}
