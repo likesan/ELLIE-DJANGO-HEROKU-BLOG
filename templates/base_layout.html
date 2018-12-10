@@ -2,35 +2,80 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ellie is here!</title>
-    <link rel="stylesheet" href="{% static 'styles.css' %}">
- 
+    <title>{% block title %} Ellie | Home {% endblock %}</title>
 
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116676814-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-116676814-2');
+    </script>
+
+
+
+
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
         crossorigin="anonymous">
+
+    <!-- carousel bamboo start -->
+    <link rel="stylesheet" href="{% static 'carousel/bamboo.min.css' %}">
+    <script src="{% static 'carousel/bamboo.min.js' %}"></script>
+    <!-- bamboo end -->
+
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- jquery end -->
+
+    <!-- instafeed init -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/instafeed.js/1.4.1/instafeed.min.js"></script>
+    <!-- instafeed end -->
     </script>
+
+
+
 </head>
+
 <body>
-        <header class=" top-25">
-                <h1><a href="{% url 'home' %}" class="a-deco-none">Ellie</a></h1>
-                <p>Maximize your Capacity</p>
-            </header>
-       
-<div class="wrapper">
-    {% block content %}
+    <!-- navi start -->
+    {% include 'navigation.html' %}
+    <!-- navi end -->
+
+    {% include 'sns_sidebar.html' %}
+
+    {% block about %}
     {% endblock %}
-</div>
-    <footer class="top-25">
-        <a class="sns" href="https://www.instagram.com/ellie_1217/">
-            Instagram
-        </a>
-        <a class="sns" href="https://www.facebook.com/profile.php?id=100013985496358">
-            Facebook
-        </a>
-    </footer>
+
+    <!-- if article detail entered -->
+    {% block article %}
+    {% endblock %}
+    <!-- article detail end -->
+
+
+    <!-- in home view -->
+    {% block header-list %}
+    {% endblock %}
+
+    <!-- article list part -->
+    {% block article-list %}
+    {% endblock %}
+
+    <!-- home view end -->
+
+    <!-- article list end -->
+    {% include 'footer.html' %}
+
 </body>
+
 </html>

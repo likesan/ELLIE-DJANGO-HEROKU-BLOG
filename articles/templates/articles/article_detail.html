@@ -1,13 +1,52 @@
 {% extends 'base_layout.html' %}
+{% load thumbnail %}
 
+{% block article %}
 
-{% block content %}
-<h1><a href="{% url 'articles:list' %}">articles</a></h1>
-<div class="article-detail">
-    <div class="article">
-        <h2>{{ article.title }}</h2>
-        <p>{{article.body}}</p>
-        <p>{{article.date}}</p>
+{% thumbnail article.thumbnail "3000x1500" upscale=True as im %}
+
+<div class="article-header">
+    <img class="article-header-img" src="{{ im.url }}">
+    <div class="article-info">
+        <h1 class="article-title nanum-mj">{{ article.title }}</h2>
+            <h4>{{ article.date|date:"d M Y" }}</h4>
     </div>
 </div>
+
+
+
+{% endthumbnail %}
+
+<div class="article-body padding-ud-3vh">
+
+    <p>{{ article.body|safe }}</p>
+</div>
+
+<!-- disqus comment setting -->
+
+<div id="disqus_thread"></div>
+    
+<script>
+       
+        var disqus_config = function () {
+        this.page.url = "https://127.0.0.1:8000/{{ article.slug }}";  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = "/{{ article.slug }}/"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+    
+        (function () { // DON'T EDIT BELOW THIS LINE
+            var d = document,
+                s = d.createElement('script');
+            s.src = 'https://ellie-personal-blog.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+<!-- disqus end -->
+
+
+<div class="article-control-buttons border-top padding-ud-3vh">
+        <a href="{% url 'articles:list' %}">
+            <img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjAgMCA1MTEuOTkxIDUxMS45OTEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMS45OTEgNTExLjk5MTsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSIzMnB4IiBoZWlnaHQ9IjMycHgiPgo8Zz4KCTxnPgoJCTxwYXRoIGQ9Ik0xNTMuNDMzLDI1NS45OTFMMzgxLjAzNywxOC4wMzNjNC4wNjMtNC4yNiwzLjkxNy0xMS4wMS0wLjMzMy0xNS4wODNjLTQuMjI5LTQuMDczLTEwLjk3OS0zLjg5Ni0xNS4wODMsMC4zMzMgICAgTDEzMC45NTQsMjQ4LjYxNmMtMy45MzcsNC4xMjUtMy45MzcsMTAuNjI1LDAsMTQuNzVMMzY1LjYyMSw1MDguN2MyLjEwNCwyLjE4OCw0Ljg5NiwzLjI5Miw3LjcwOCwzLjI5MiAgICBjMi42NDYsMCw1LjMxMy0wLjk3OSw3LjM3NS0yLjk1OGM0LjI1LTQuMDczLDQuMzk2LTEwLjgyMywwLjMzMy0xNS4wODNMMTUzLjQzMywyNTUuOTkxeiIgZmlsbD0iIzAwMDAwMCIvPgoJPC9nPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=" />
+        </a>
+    </div>
 {% endblock %}

@@ -1,0 +1,81 @@
+{% extends 'base_layout.html' %}
+
+{% block title %} Ellie | About {% endblock %}
+
+{% block about %}
+
+<!-- instafeed -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/instafeed.js/1.4.1/instafeed.min.js"></script>
+
+
+<section class="intro-wrapper margin-top-down-5vh">
+    <div class="intro-title">
+        <h1 class="text-center">MEET THE LIFE COACH</h1>
+        <hr width="15vw">
+    </div>
+
+    <div class="intro-body-wrapper margin-top-down-5vh">
+        <div class="intro-left-side">
+            <img class="intro-img" src="https://scontent-icn1-1.cdninstagram.com/vp/20f6f24a6bbc4f819ccfd1cb070e64b2/5C9678B2/t51.2885-15/e35/24126409_1172701979498264_3756372817919082496_n.jpg">
+        </div>
+        <div class="intro-right-side">
+            <h4 class="intro-left-title">Ellie Kim</h4>
+            <p class="intro-para brunch-style-p"> It is a long established fact that a reader will be distracted by the
+                readable content
+                of a page when
+                looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution
+                of
+                letters, as opposed to using 'Content here, content here', making it look like readable English. Many
+                desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a
+                search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have
+                evolved
+                over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+        </div>
+
+    </div>
+
+    <div id="instafeed" class="margin-top-down-5vh">
+
+        
+    </div>
+
+    <button id="load-more">LOAD MORE</button>
+
+    
+    <!-- instagram grids -->
+    <script type="text/javascript">
+        var loadButton = document.getElementById('load-more');
+
+        var feed = new Instafeed({
+            limit: '10',
+            get: 'user',
+            resolution: 'standard_resolution',
+            sortBy: 'most-liked',
+            clientId: 'dee8a826e8d94feb94c2ea6b72581598',
+            userId: '2320194257',
+            accessToken: '2320194257.1677ed0.f2fcf458a4cb4cd4b9df266b53f5cb29',
+
+            after: function () {
+                // disable button if no more results to load
+                if (!this.hasNext()) {
+                    loadButton.setAttribute('disabled', 'disabled');
+                }
+            },
+
+        });
+
+        // bind the load more button
+        loadButton.addEventListener('click', function () {
+            feed.next();
+            this.fadeIn();
+        });
+
+        feed.run();
+    </script>
+
+
+    <!-- insta grid end -->
+
+</section>
+
+{% endblock %}

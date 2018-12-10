@@ -2,13 +2,13 @@ from django.shortcuts import render
 from .models import Article
 from django.http import HttpResponse
 
-# Create your views here.
 def article_list(request):
-    articles = Article.objects.all().order_by('date')
-    return render(request, 'articles/article_list.html', {'articles':articles} )
-# third arguments are the data what I wish to deliever to the html template! It's like the JSP from Frontcontroller in Java Springs
+    articles = Article.objects.filter(position=2).order_by('date') # all articles
+    headers = Article.objects.filter(position=3).order_by('date') # collect only header position posts
+    return render(request, 'articles/article_list.html', {'articles':articles, 'headers':headers})
 
 def article_detail(request, slug):
-    # return HttpResponse(slug)
-    article = Article.objects.get(slug=slug) # get the article title/slug/etc which is the included slug is same which is gotten through the url slug
-    return render(request,"articles/article_detail.html",{'article':article})
+    print(request, slug)    
+    article = Article.objects.get(slug=slug)
+    return render(request,"articles/article_detail.html", {'article':article})   
+    

@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -38,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'articles',
+    'templates',
+    'django_summernote',
+    'sorl.thumbnail',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +55,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'djangoblog.urls'
+
 
 TEMPLATES = [
     {
@@ -68,6 +73,7 @@ TEMPLATES = [
     },
 ]
 
+
 WSGI_APPLICATION = 'djangoblog.wsgi.application'
 
 
@@ -76,11 +82,14 @@ WSGI_APPLICATION = 'djangoblog.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'dythcusu',
+        'USER': 'dythcusu',
+        'PASSWORD': 'X7dbQnhCnydJrWLQL2eFpjZB5UCTivqb',
+        'HOST': 'tantor.db.elephantsql.com',
+        'PORT': '5432',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -108,6 +117,7 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Asia/Seoul'
 
+
 USE_I18N = True
 
 USE_L10N = True
@@ -123,3 +133,9 @@ STATIC_URL = '/static/' # need to be written when you point the static file
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'assets'),
 )
+
+MEDIA_URL = '/media/'
+
+SUMMERNOTE_CONFIG = {}
+
+SUMMERNOTE_THEME = 'bs4'  # Show summernote with Bootstrap4

@@ -1,15 +1,166 @@
 {% extends 'base_layout.html' %}
+{% load thumbnail %}
 
-{% block content %}
-<h1>Article List</h1>
+{% block article-list %}
 
-<div class="articles">
-    {% for article in articles %}
-    <div>
-        <h2><a href="{% url 'articles:detail' slug=article.slug %}">{{article.title}}</a></h2>
-        <p>{{article.snippet}}</p>
-        <p>{{article.date}}</p>
+<div class="header-wrapper">
+    <div class="main-description">
+        <div>
+        </div>
+        <div>
+            {% for header in headers %}
+            {% if forloop.first %}
+            <h1 class="main-article-title nanum-mj">
+                {{ header.title }}
+            </h1>
+            <!--    <p class="main-excerpt">{{ header.snippet }}</p>  -->
+
+            <button class="blue-button"><a href="{% url 'articles:detail' slug=header.slug %}" class="a-custom">Read
+                    Article</a></button>
+            {% else %}
+            {% endif %}
+
+            {% endfor %}
+
+        </div>
+        <div>
+
+        </div>
     </div>
-    {% endfor %}
+
+    <!-- home view main article -->
+    <div class="main-articles">
+
+        <div class="main-img-slides main-img overflow-hidden">
+            {% for header in headers %}
+            {% if forloop.counter <= 3%} {% thumbnail header.thumbnail "1000x750" crop="center" upscale=True as im %}
+                <div class="slide{{ forloop.counter }}">
+                <a class="main-img " href="{% url 'articles:detail' slug=header.slug %}">
+                    <img class="main-slide-img zoom" src="{{ im.url }}">
+                </a>
+        </div>
+
+        {% endthumbnail %}
+        {% endif %}
+        {% endfor %}
+    </div>
+
+
+
+    {% for header in headers %}
+    {% if forloop.counter <= 3 %} <a class="main-articles-block" href="{% url 'articles:detail' slug=header.slug %}">
+        <div class="small-descriptions">
+            <h4 class="small-desriptions-numbers">0{{ forloop.counter }}.</h4>
+            <h4 class="small-desription-title nanum-mj">{{ header.title }}</h4>
+            <p class="date">{{ header.date|date:"d M Y" }}</p>
+            <input class="hidden-snippet" type="hidden" text="{{header.snippet}}">
+        </div>
+
+        </a>
+
+        {% endif %}
+        {% endfor %}
+
+        <script>
+            // main articles hover options
+            const block = document.getElementsByClassName("main-articles-block");
+            const img = document.getElementsByClassName("main-slide-img");
+            const mainTitle = document.getElementsByClassName("main-article-title");
+            const smallTitle = document.getElementsByClassName("small-desription-title");
+            // const mainExcerpt = document.getElementsByClassName("main-excerpt");
+            // const smallExcerpt = document.getElementsByClassName("hidden-snippet");
+
+            const noChangeSrc = img[0].src; // first image src which haven't to be changed
+            const noChangeTitle = mainTitle[0].innerHTML;
+            // const noChangeExpert = mainExcerpt[0].innerHTML;
+
+            // when 1st block touched
+            block[0].onmouseover = function hello() {
+                console.log("block 0 touched")
+                img[0].src = noChangeSrc; // img change
+                mainTitle[0].innerHTML = noChangeTitle;
+                // mainExcerpt[0].innerHTML = noChangeExpert;
+            }
+            // when 2nd block touched
+            block[1].onmouseover = function () {
+                console.log("block 1 touched")
+                img[0].src = img[1].src; // img change
+                mainTitle[0].innerHTML = smallTitle[1].innerHTML;
+                // mainExcerpt[0].innerHTML = smallExcerpt[1].innerHTML;
+            }
+            // when 3rd block touched
+            block[2].onmouseover = function () {
+                console.log("block 2 touched")
+                img[0].src = img[2].src; // img change
+                mainTitle[0].innerHTML = smallTitle[2].innerHTML;
+                // mainExcerpt[0].innerHTML = smallExcerpt[2].innerHTML;
+            }
+        </script>
+
+
 </div>
+
+<!-- home view main article end -->
+
+</div>
+
+<div class="articles-wrapper">
+    <div class="articles">
+        {% for article in articles %}
+        <article class="article">
+            <a class="a-no-deco" href="{% url 'articles:detail' slug=article.slug %}">
+                {% thumbnail article.thumbnail "1500x1500" crop="center" upscale=True as im %}
+                <div class="overflow-hidden">
+                    <img class="thumbnail zoom" src='{{ im.url }}' alt="" width="100%" height="100%">
+                </div>
+                {% endthumbnail %}
+                <h2 class="nanum-mj">{{article.title}}</h2>
+                <p class="date">{{article.date|date:"d M Y"}}</p>
+            </a>
+        </article>
+        {% endfor %}
+    </div>
+
+
+    <div class="no-more-article" style="display:none; color:grey; opacity:0.5; text-align: center;">
+        <p>-</p>
+    </div>
+
+   
+    <div class="load-more-section">
+        <button id='load-more-btn' class="button-grey-border">LOAD MORE</a>
+    </div>
+   
+    <script>
+        $(document).ready(function () {
+
+            const articleCounts = Math.max($(".article").length); // set the maximum amounts of articles
+            console.log("total article counts : " + articleCounts);
+
+            $(".article").slice(0, 2).show();
+
+
+            // hiding rest articles
+            $(".article").slice(3, articleCounts).hide();
+            if ($(".article:hidden").length != 0) {
+                $("#load-more-btn").show();
+            }
+
+            $("#load-more-btn").on('click', function (e) {
+                e.preventDefault();
+                $(".article:hidden").slice(0, 3).fadeIn('slow').show();
+
+                // if all articles come out, remove the load more button
+                if ($(".article:hidden").length == 0) {
+                    $(".load-more-section").slideUp('slow');
+
+                }
+            })
+        });
+    </script>
+
+
+</div>
+
+
 {% endblock %}
