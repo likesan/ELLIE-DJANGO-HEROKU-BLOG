@@ -2,4 +2,4 @@ django
 gunicorn
 django-heroku
 django-summernote
-sorl
+sorl=12.5.0
