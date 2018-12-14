@@ -1,6 +1,7 @@
 # Django Python Blog
-Pyhon Django Blog app for Girlfriend.
 
+This is for Girlfriend and my practice on Django.
+You can see the deployed App in [here.](http://ellie-django-blog.herokuapp.com/)
 # Benchmarked Target Site
 
 [Mihome](https://dribbble.com/tranmautritam/projects/694471-MI-Home-Free-Sketch-App-Template)
