@@ -1,8 +1,11 @@
-# my-first-blog
+# Django Python Blog
 Pyhon Django Blog app for Girlfriend.
 
-# Modules
+# Benchmarked Target Site
 
+[Mihome](https://dribbble.com/tranmautritam/projects/694471-MI-Home-Free-Sketch-App-Template)
+
+# Modules
 1. astroid==2.0.4
 2. colorama==0.4.0
 3. Django==2.1.3
